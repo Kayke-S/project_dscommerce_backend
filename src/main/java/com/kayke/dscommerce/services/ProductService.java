@@ -1,4 +1,5 @@
 package com.kayke.dscommerce.services;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +35,13 @@ public class ProductService {
         return result.map(product -> new ProductDTO(product));
     }
 
+    @Transactional()
+    public ProductDTO insert(ProductDTO productDTO) {
+        Product entity = new Product(productDTO);
+
+        entity = productRepository.save(entity);
+
+        return new ProductDTO(entity);
+
+    }
 }

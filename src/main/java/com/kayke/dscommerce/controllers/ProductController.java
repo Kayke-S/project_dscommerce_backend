@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +30,10 @@ public class ProductController {
     @GetMapping
     public Page<ProductDTO> findAll(Pageable pageable) {
         return productService.findAll(pageable);
+    }
+
+    @PostMapping
+    public ProductDTO insert(@RequestBody ProductDTO productDTO) { // passa de json pra ProductDTO
+        return productService.insert(productDTO);
     }
 }
