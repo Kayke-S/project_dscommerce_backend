@@ -112,7 +112,7 @@ public class Product {
         return items.stream().map(item -> item.getOrder()).toList();
     }
 
-    public void copyDtoToEntity(ProductDTO dto) {
+    public void fromDTO(ProductDTO dto) {
         this.setName(dto.getName());
         this.setDescription(dto.getDescription());
         this.setPrice(dto.getPrice());
