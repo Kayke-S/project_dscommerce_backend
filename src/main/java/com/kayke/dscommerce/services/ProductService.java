@@ -1,7 +1,5 @@
 package com.kayke.dscommerce.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kayke.dscommerce.dto.ProductDTO;
 import com.kayke.dscommerce.entities.Product;
 import com.kayke.dscommerce.repositories.ProductRepository;
+import com.kayke.dscommerce.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ProductService {
@@ -20,9 +19,8 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        Optional<Product> result = productRepository.findById(id);
-
-        Product product = result.get();
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
 
         return new ProductDTO(product);
     }
