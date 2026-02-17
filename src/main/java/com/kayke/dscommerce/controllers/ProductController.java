@@ -20,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.kayke.dscommerce.dto.ProductDTO;
 import com.kayke.dscommerce.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RestController
 @RequestMapping(value = "/products")
@@ -41,7 +43,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO productDTO) { // passa de json pra ProductDTO
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO productDTO) { // passa de json pra
+                                                                                          // ProductDTO
         productDTO = productService.insert(productDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -51,7 +54,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto) {
         ProductDTO productDTO = productService.update(id, dto);
         return ResponseEntity.ok(productDTO);
     }
